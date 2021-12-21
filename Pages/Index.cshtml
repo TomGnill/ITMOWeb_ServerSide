@@ -1,0 +1,57 @@
+﻿@page
+@model IndexModel
+@using ITMOWeb_Base.Classes
+@using System.Collections.Generic
+@using ITMOWeb_Site.services
+@{
+    IPostServ _postServ = new PostServ();
+    
+    ViewData["Title"] = "Home page";
+    var posts = _postServ.GetPostsDB();
+}
+
+<head>
+    <link rel="stylesheet" href="Table.css" />
+</head>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+</div>
+<div class="text-center">
+    <table class = "table">
+        <tbody>
+            <tr>
+                <th width = 85%>Название темы</th>
+                <th>Автор</th>
+                <th>Дата</th>
+                <th>Коммы</th>
+                <th></th>
+            </tr>
+            @*                @foreach (var post in @posts)
+                {
+                <tr>
+                <td width = 85% >@post.Title
+                <a  href="https://localhost:44315/Post?handler=ById&id=1">Read</a>
+                </td>
+                <td class = "home_author">@post.Author.Name</td>
+                <td class = "home_date">@post.Date.Date</td>
+                <td class = "home_acomm">@post.Comments.Count() </td>
+                </tr>
+                }*@
+            @for (int i = 0; i < posts.Count; i++)
+            {
+                <tr>
+                    <td width = 85%>
+                        @posts[i].Title
+                        <p>
+                            <a href="https://localhost:44315/Post?handler=ById&id=@i">Read
+                            </a>
+                        </p>
+                    </td>
+                    <td class="home_author"> <a href="https://localhost:44315/Author?handler=ById&id=@i">@posts[i].Author.Name</a> </td>
+                    <td class="home_date">@posts[i].Date.ToShortDateString()</td>
+                    <td class="home_acomm">@posts[i].Comments.Count() </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

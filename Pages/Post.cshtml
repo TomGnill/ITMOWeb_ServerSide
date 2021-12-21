@@ -1,0 +1,22 @@
+﻿@page
+@model ITMOWeb_Site.Pages.PostModel
+@using ITMOWeb_Base.Classes
+@using System.Collections.Generic
+@using ITMOWeb_Site.services
+@{
+}
+<div class="card">
+    <h2>@Model.selectedPost.Title</h2>
+       @{ int id = Model.selectedPost.ID - 1;}
+      <h3><a href="https://localhost:44315/Author?handler=ById&id=@id">@Model.selectedPost.Author.Name </a> </h3>
+      <h5>@Model.selectedPost.Date</h5>
+      <p>@Model.selectedPost.Body</p>
+    </div>
+@if(Model.selectedPost.Comments.Count > 0)
+{
+    <div>Comments :</div>
+    @foreach(var com in Model.selectedPost.Comments)
+    {
+        <p>@com.Author.Name : @com.Body</p>
+    }
+}

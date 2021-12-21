@@ -1,0 +1,33 @@
+﻿@page
+@using System.Linq;
+@model ITMOWeb_Site.Pages.AuthorModel
+@{
+}
+
+<div class="card">
+    <h3>@Model.selectedUser.Name</h3>
+    <h5>@Model.selectedUser.Id</h5>
+</div>
+
+<div>Posts :</div>
+<table class = "table">
+    <tbody>
+    <tr>
+        <th width = 85%>Название темы</th>
+        <th>Дата</th>
+        <th>Коммы</th>
+        <th></th>
+    </tr>
+    @foreach(var post in Model.UserPost)
+    {
+        <tr>
+            <td width=85%>
+                @{ int id = post.ID - 1;}
+                <a href="https://localhost:44315/Post?handler=ById&id=@id">@post.Title</a>
+            </td>
+            <td class="home_date">@post.Date.ToShortDateString()</td>
+            <td class="home_acomm">@post.Comments.Count() </td>
+        </tr>
+    }
+    </tbody>
+</table>
